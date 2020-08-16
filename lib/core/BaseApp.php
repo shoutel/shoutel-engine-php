@@ -6,9 +6,17 @@ class BaseApp
 {
 	public $status = 'success';
 
-	public $message = FALSE;
+	public $message = NULL;
 	
-	public $styleList = FALSE;
+	public $styleList = NULL;
+	
+	public $db = NULL;
+	
+	public function __construct()
+	{
+		$database = new Database();
+		$this->db = $database->db;
+	}
 
 	public function invoke($param = array())
 	{
@@ -43,22 +51,22 @@ class BaseApp
 		if ($class) return $class;
 	}
 
-  public function redirect($target)
-  {
-    header("Location: {$target}");
+	public function redirect($target)
+	{
+		header("Location: {$target}");
 
-    exit;
-  }
+		exit;
+	}
   
-  public function showError($errorCode, $errorMessage = 'ok')
-  {
-	http_response_code($errorCode);
-	
-	$this->status = 'error';
-	$this->message = $errorMessage;
+	public function showError($errorCode, $errorMessage = 'ok')
+	{
+		http_response_code($errorCode);
 
-	return;
-  }
+		$this->status = 'error';
+		$this->message = $errorMessage;
+
+		return;
+	}
 
 	public function render($tpl_path, $obj)
 	{

@@ -4,13 +4,13 @@ use Minifier\TinyMinify;
 
 class Display extends BaseApp
 {
-	protected $module = FALSE;
+	protected $module = NULL;
 
-	protected $method = FALSE;
+	protected $method = NULL;
 	
 	protected $no_template = FALSE;
 	
-	protected $output = FALSE;
+	protected $output = NULL;
 	
 	public function getDisplayRootTemplate()
 	{
@@ -127,6 +127,13 @@ class Display extends BaseApp
 			{
 				$content = $this->render('msg/defaultMessage', array(
 					'msg_title' => 'Error',
+					'message' => $this->message
+				));
+			}
+			elseif ($this->message)
+			{
+				$content = $this->render('msg/defaultMessage', array(
+					'msg_title' => 'Message',
 					'message' => $this->message
 				));
 			}
