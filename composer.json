@@ -1,0 +1,7 @@
+{
+    "require": {
+        "catfan/medoo": "^1.7",
+        "mustache/mustache": "^2.13",
+        "pfaciana/tiny-html-minifier": "^3.0"
+    }
+}
