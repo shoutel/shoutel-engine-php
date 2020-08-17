@@ -63,3 +63,16 @@ function post_value($key = null, $default = null)
   
   return isset($request[$key]) ? $request[$key] : $no_value;
 }
+
+function get_link($full = true)
+{
+  $server_protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+  $uri = null;
+  if ($full)
+  {
+    $uri = $_SERVER['REQUEST_URI'];
+  }
+  $actual_link = $server_protocol . "://$_SERVER[HTTP_HOST]" . $uri;
+
+  return $actual_link;
+}

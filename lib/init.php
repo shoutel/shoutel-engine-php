@@ -7,6 +7,7 @@ define('PROJECT_ROOT', realpath(dirname(__FILE__) . '/..'));
 define('TEMPLATES_ROOT', PROJECT_ROOT . '/templates/');
 define('VIEW_ROOT', PROJECT_ROOT . '/app/View/');
 define('DATA_ROOT', PROJECT_ROOT . '/data/');
+define('ASSETS_ROOT', PROJECT_ROOT . '/assets/');
 
 define('COMMON_VIEW_PATH', VIEW_ROOT . 'commons/');
 define('ERROR_VIEW_PATH', VIEW_ROOT . 'errors/');

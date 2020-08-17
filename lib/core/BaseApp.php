@@ -4,22 +4,22 @@ use Mustache\mustache;
 
 class BaseApp
 {
-	public $status = 'success';
-
-	public $message = NULL;
-	
-	public $styleList = NULL;
-	
 	public $db = NULL;
 	
 	public function __construct()
 	{
 		$database = new Database();
-		$this->db = $database->db;
+		$this->db = $database;
 	}
 
 	public function invoke($param = array())
 	{
+		if (get_link(false) != DEFAULT_URL)
+		{
+			$uri = $_SERVER['REQUEST_URI'];
+			$this->redirect(DEFAULT_URL . $uri);
+		}
+
 		$display = new Display();
 		$display->displayAction($param);
 	}
@@ -60,12 +60,7 @@ class BaseApp
   
 	public function showError($errorCode, $errorMessage = 'ok')
 	{
-		http_response_code($errorCode);
-
-		$this->status = 'error';
-		$this->message = $errorMessage;
-
-		return;
+		
 	}
 
 	public function render($tpl_path, $obj)

@@ -4,18 +4,18 @@ use Minifier\TinyMinify;
 
 class Display extends BaseApp
 {
-	protected $module = NULL;
+	public $no_template = FALSE;
 
-	protected $method = NULL;
-	
-	protected $no_template = FALSE;
+	public $module = NULL;
+
+	public $method = NULL;
 	
 	protected $output = NULL;
 	
-	public function getDisplayRootTemplate()
+	public function getDisplayRootTemplate($obj)
 	{
-		$module = $this->module;
-		$method = $this->method;
+		$module = $obj->module;
+		$method = $obj->method;
 		
 		if ($module && $method)
 		{
@@ -45,6 +45,25 @@ class Display extends BaseApp
 		
 		return false;
 	}
+
+	public function getDisplayDefaultHtml($content)
+	{
+		$assets = FrontAssets::parseHtml();
+		$actual_link = get_link();
+		$img_revision = FrontAssets::manageRevision('images');
+
+		$content = $this->render('common/default_html', array(
+			'body_content' => $content,
+			'css' => $assets->css,
+			'js' => $assets->js,
+			'body_js' => $assets->body_js,
+			'canonical_url' => DEFAULT_URL,
+			'curr_url' => $actual_link,
+			'img_revision' => $img_revision
+		));
+
+		return $content;
+	}
 	
 	public function displayAction($param, $actionKey = ['module', 'action', 'api'])
 	{
@@ -55,119 +74,70 @@ class Display extends BaseApp
 		$module = get_value($module_key);
 		$act = get_value($act_key);
 		$api = get_value($api_key);
-		
+
+		FrontAssets::init();
+
+		// include common CSS
+		FrontAssets::load(true, 'css/common/common.css', -1000000);
+
 		if ($api == 'json')
 		{
-			$this->no_template = true;
-
-			if ($module && $act)
-			{
-				$class = $this->loadController($module);
-
-				if ($class)
-				{
-					$method = $act;
-
-					if (!method_exists($class, $method)) {
-						$this->showError(404, 'method_not_found');
-					}
-					else
-					{
-						$output = $class->$method($param);
-						
-						$this->output = $output;
-					}
-				}
-				else
-				{
-					$this->showError(404, 'class_not_found');
-				}
-			}
+			$display = new JSONDisplay($module, $act);
 		}
 		else
 		{
-			if (($module && !$act) ||
-				($module && $act))
-			{
-				$class = $this->loadView($module);
-
-				if ($class)
-				{
-					$default_view = $class->default_view;
-					$method = $act ? $act : $default_view;
-					
-					if (!method_exists($class, $method)) {
-						$method = $default_view;
-					}
-				}
-				else
-				{
-					$this->showError(404, 'class_not_found');
-				}
-			}
-			else
-			{
-				$module = DEFAULT_CLASS;
-				$class = $this->loadView($module);
-				$method = DEFAULT_HOME;
-			}
-			
-			if (isset($method))
-			{
-				$this->module = $module;
-				$this->method = $method;
-				
-				$content = $class->$method($param);
-			}
+			$display = new HTMLDisplay($module, $act);
 		}
-		
-		if (!$this->no_template)
+
+		if (isset($display))
 		{
-			if ($this->status == 'error' && $this->message)
+			$output = $display->output;
+
+			$obj = new stdClass();
+			$obj->module = $display->module;
+			$obj->method = $display->method;
+			
+			if (!$display->no_template)
 			{
-				$content = $this->render('msg/defaultMessage', array(
-					'msg_title' => 'Error',
-					'message' => $this->message
-				));
-			}
-			elseif ($this->message)
-			{
-				$content = $this->render('msg/defaultMessage', array(
-					'msg_title' => 'Message',
-					'message' => $this->message
-				));
-			}
-			else
-			{
-				$root = $this->getDisplayRootTemplate();
+				$root = $this->getDisplayRootTemplate($obj);
+
+				if ($output instanceof CreateError)
+				{
+					$output = $this->render('msg/defaultMessage', array(
+						'msg_title' => 'Error',
+						'message' => $output->message
+					));
+				}
 				
 				if ($root)
 				{
-					$content = $this->render($root, array(
-						'content' => $content
+					$output = $this->render($root, array(
+						'content' => $output
 					));
 				}
+
+				$output = $this->getDisplayDefaultHtml($output);
+			}
+			else
+			{
+				$obj = new stdClass();
+			
+				if ($output instanceof CreateError)
+				{
+					$obj->status = $output->status;
+					$obj->message = $output->message;
+				}
+				else
+				{
+					$obj->output = $output;
+				}
+				
+				$output = json_encode($obj);
 			}
 			
-			$css = $js = '';
-			$content = $this->render('common/default_html', array(
-				'body_content' => $content,
-				'css' => $css,
-				'js' => $js
-			));
+			print $output;
+			exit();
 		}
-		else
-		{
-			$obj = new stdClass();
-			
-			$obj->status = $this->status;
-			$obj->message = $this->message;
-			$obj->output = $output;
-			
-			$content = json_encode($obj);
-		}
-		
-		print $content;
 	}
 }
 

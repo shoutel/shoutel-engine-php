@@ -10,7 +10,6 @@ class ComposerStaticInitcbc7c1e0c334e80ecda90f859a12eba7
         'M' => 
         array (
             'Minifier\\' => 9,
-            'Medoo\\' => 6,
         ),
     );
 
@@ -18,10 +17,6 @@ class ComposerStaticInitcbc7c1e0c334e80ecda90f859a12eba7
         'Minifier\\' => 
         array (
             0 => __DIR__ . '/..' . '/pfaciana/tiny-html-minifier/src',
-        ),
-        'Medoo\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/catfan/medoo/src',
         ),
     );
 

@@ -29,7 +29,6 @@ Shoutel을 위한 기능을 구현하기 위해 개발하고 있으며, Shoutel 
 * [AndikaR/SimpleBulletin](https://github.com/AndikaR/SimpleBulletin)
 * [Composer](https://getcomposer.org/)
 * [mustache.php](https://github.com/bobthecow/mustache.php)
-* [Medoo](https://github.com/catfan/Medoo)
 
 ## Special Thanks
 * P모 군
