@@ -24,6 +24,13 @@ Shoutel을 위한 기능을 구현하기 위해 개발하고 있으며, Shoutel 
 * 포인트/레벨 기능
 * 한줄(샤우팅) 게시판
 
+## 설치 방법
+* 루트에 data 디렉토리 생성
+* data 디렉토리에 example 파일 복사
+* data 디렉토리에 복사한 example 파일의 파일명에서 .example 제거
+* 해당 파일 수정
+* 데이터베이스 db 파일을 DB에 import
+
 ## Thanks to
 * [UwAmp](https://www.uwamp.com/en/)
 * [AndikaR/SimpleBulletin](https://github.com/AndikaR/SimpleBulletin)
