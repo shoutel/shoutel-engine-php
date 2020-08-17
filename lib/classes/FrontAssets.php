@@ -78,7 +78,7 @@ class FrontAssets
 	{
 		if (!self::$revision_data)
 		{
-			$conf_path = DATA_ROOT . 'asset_revision.json';
+			$conf_path = ASSETS_ROOT . 'asset_revision.json';
 			$file = file_get_contents($conf_path, true);
 
 			$json = json_decode($file, true);
