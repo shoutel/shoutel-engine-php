@@ -1,0 +1,14 @@
+location ~ /\.ht { deny all; }
+
+location ~ ^/(app|data|examples|lang|lib|templates)/.+\.(php(\.example)?|json|mustache)$ {
+	return 403;
+}
+
+location ~ ^/vendor/ { return 403; }
+
+location ~ ^/(\.git|composer\.|LICENSE|README(\.md)?) {
+  return 403;
+}
+
+rewrite ^/([a-zA-Z0-9_]+)/?$ /index.php?module=$1 last;
+rewrite ^/([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)?$ /index.php?module=$1&action=$2 last;

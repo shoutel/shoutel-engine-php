@@ -11,6 +11,12 @@ class Display extends BaseApp
 	public $method = NULL;
 	
 	protected $output = NULL;
+
+	static $title = NULL;
+
+	static $description = NULL;
+
+	static $noindex = FALSE;
 	
 	public function getDisplayRootTemplate($obj)
 	{
@@ -57,14 +63,67 @@ class Display extends BaseApp
 			'css' => $assets->css,
 			'js' => $assets->js,
 			'body_js' => $assets->body_js,
-			'canonical_url' => DEFAULT_URL,
 			'curr_url' => $actual_link,
-			'img_revision' => $img_revision
+			'img_revision' => $img_revision,
+			'default_locale' => DEFAULT_LOCALE,
+			'robots_noindex' => self::getDisplayNoindex(),
+			'title' => self::getDisplayTitle(),
+			'site_name' => SITE_NAME,
+			'site_description' => self::getDisplayDescription(),
+			'site_keywords' => SITE_KEYWORDS
 		));
 
 		return $content;
 	}
-	
+
+	public static function setDisplayTitle($title)
+	{
+		self::$title = $title;
+	}
+
+	public static function getDisplayTitle()
+	{
+		$title = self::$title;
+		$title_style = DEFAULT_TITLE_STYLE;
+
+		if (!$title)
+		{
+			return SITE_NAME;
+		}
+		else
+		{
+			$title_style = str_replace('$TITLE', SITE_NAME, $title_style);
+			$title_style = str_replace('$SUBTITLE', $title, $title_style);
+			return $title_style;
+		}
+	}
+
+	public static function setDisplayDescription($description)
+	{
+		self::$description = $description;
+	}
+
+	public static function getDisplayDescription()
+	{
+		if (!self::$description)
+			return SITE_DESCRIPTION;
+		else
+			return self::$description;
+	}
+
+	public static function setDisplayNoindex($noindex)
+	{
+		self::$noindex = $noindex;
+	}
+
+	public static function getDisplayNoindex()
+	{
+		if (!self::$noindex)
+			return;
+		else
+			return '<meta name="robots" content="noindex" />';
+	}
+
 	public function displayAction($param, $actionKey = ['module', 'action', 'api'])
 	{
 		$module_key = $actionKey[0];
@@ -83,10 +142,12 @@ class Display extends BaseApp
 		if ($api == 'json')
 		{
 			$display = new JSONDisplay($module, $act);
+			$display->init();
 		}
 		else
 		{
 			$display = new HTMLDisplay($module, $act);
+			$display->init();
 		}
 
 		if (isset($display))

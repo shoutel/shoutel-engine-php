@@ -19,4 +19,5 @@
 require_once('./lib/init.php');
 
 $controller = new BaseApp();
+$controller->init();
 $controller->invoke();

@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bulletin</title>
+    <title>{{title}}</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <link rel="canonical" href="{{canonical_url}}/">
-    <link rel="shortcut icon" href="/assets/img/favicon.ico?rev={{img_revision}}">
-    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?rev={{img_revision}}">
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{curr_url}}"/>
-    <meta property="og:site_name" content="{{site_name}}" />
-    <meta property="og:image" content="/assets/img/apple-touch-icon.png?rev={{img_revision}}" />
-
+    <meta name="description" content="{{site_description}}" />
+    <meta name="keywords" content="{{site_keywords}}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{{robots_noindex}}}
+    <link rel="canonical" href="{{curr_url}}" />
+    <link rel="shortcut icon" href="/assets/img/favicon.ico?rev={{img_revision}}" />
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?rev={{img_revision}}" />
     {{{js}}}
     {{{css}}}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{curr_url}}" />
+    <meta property="og:site_name" content="{{site_name}}" />
+    <meta property="og:title" content="{{title}}" />
+    <meta property="og:description" content="{{site_description}}" />
+    <meta property="og:image" content="/assets/img/apple-touch-icon.png?rev={{img_revision}}" />
+    <meta property="og:locale" content="{{default_locale}}" />
   </head>
   <body>
     {{{body_content}}}

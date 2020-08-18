@@ -4,7 +4,7 @@ class DBMySql extends BaseApp
 {
 	public $database = null;
 
-	public function __construct($conf = null)
+	public function init($conf = null)
 	{
 		if ($conf)
 		{

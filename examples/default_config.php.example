@@ -1,7 +1,11 @@
 <?php
 
+define('SITE_NAME' , 'Shoutel');
+define('SITE_DESCRIPTION' , '');
+define('SITE_KEYWORDS' , '');
 define('DEFAULT_LOCALE' , 'en_US');
 define('DEFAULT_URL' , 'http://example.com');
+define('DEFAULT_TITLE_STYLE' , '$SUBTITLE - $TITLE');
 date_default_timezone_set('America/New_York');
 
 ?>

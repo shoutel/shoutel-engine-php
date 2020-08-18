@@ -4,7 +4,7 @@ class Database extends BaseApp
 {
 	private $conn = NULL;
 	
-	public function __construct()
+	public function init()
 	{
 		if (defined('DB_SYSTEM'))
 		{
@@ -33,10 +33,12 @@ class Database extends BaseApp
 			{
 				case 'mysql':
 					$mysql = new DBMySql($conf);
+					$mysql->init();
 					$this->conn = $mysql->database;
 					break;
 				case 'sqlite':
 					$sqlite = new DBSqlite($conf);
+					$sqlite->init();
 					$this->conn = $sqlite->database;
 					break;
 				default:

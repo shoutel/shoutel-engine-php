@@ -8,10 +8,9 @@ class AuthView extends BaseApp
 	{
 		$db = $this->db;
 
-		FrontAssets::load(true, 'dsfsdf33.css', 3);
-		FrontAssets::load(true, 'dsfsdf334.css', 2);
+		Display::setDisplayTitle('Auth');
+
 		FrontAssets::load(false, 'headjs.js', 3, 'head');
-		FrontAssets::load(false, 'bodyjs.js', 2, 'body');
 		$obj = new stdClass();
 		$obj->lang_id = 'Id';
 		$obj->lang_pass = '패스워드';

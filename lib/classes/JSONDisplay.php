@@ -12,7 +12,7 @@ class JSONDisplay extends Display
 
     public $output = NULL;
 
-    public function __construct($module = null, $act = null)
+    public function init($module = null, $act = null)
     {
         $base_app = new BaseApp();
 

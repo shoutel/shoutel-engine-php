@@ -6,9 +6,10 @@ class BaseApp
 {
 	public $db = NULL;
 	
-	public function __construct()
+	public function init()
 	{
 		$database = new Database();
+		$database->init();
 		$this->db = $database;
 	}
 
@@ -65,9 +66,23 @@ class BaseApp
 
 	public function render($tpl_path, $obj)
 	{
-		$f = file_get_contents(TEMPLATES_ROOT.$tpl_path.'.mustache', true);
-		$m = new Mustache_Engine(array('entity_flags' => ENT_QUOTES));
-		$render = $m->render($f, $obj);
+		$mustache = new Mustache_Engine(array(
+			'entity_flags' => ENT_QUOTES,
+			'cache' => DATA_ROOT . 'cache/templates',
+			'cache_file_mode' => 0600,
+			'cache_lambda_templates' => true,
+			'loader' => new Mustache_Loader_FilesystemLoader(TEMPLATES_ROOT),
+			'partials_loader' => new Mustache_Loader_FilesystemLoader(TEMPLATES_ROOT . 'partials'),
+			'escape' => function($value) {
+				return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
+			},
+			'charset' => 'UTF-8',
+			'logger' => new Mustache_Logger_StreamLogger('php://stderr'),
+			'strict_callables' => true,
+			'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
+		));
+		$m = $mustache->loadTemplate($tpl_path);
+		$render = $m->render($obj);
 		
 		return $render;
 	}

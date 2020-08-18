@@ -1,0 +1,123 @@
+html,body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: #fff;
+}
+footer.sht-footer {
+  padding: 2rem 1rem;
+  font-size: 12px;
+  background-color: #fff;
+}
+footer.sht-footer .sht-policy-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+footer.sht-footer .sht-policy-list .policy-list {
+  margin: 0;
+  padding: 0;
+  margin-right: 10px;
+  font-size: 13px;
+}
+footer.sht-footer .sht-policy-list .policy-list a {
+  color: #666;
+}
+.top-nav {
+  border-top: 3px solid #9a8c84;
+}
+.top-nav .container {
+  border-bottom: 1px solid #E6EAEE;
+}
+.sht-list-wrap .columns {
+  padding: 2rem 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.navbar-menu .navbar-item {
+  padding: 0 1rem;
+}
+.sht-list-wrap .sht-list {
+  width: 100%;
+}
+.sht-list-wrap .sht-right-sidebar {
+  display: none;
+}
+@media screen and (min-width: 1024px) {
+  .sht-list-wrap .sht-list {
+    width: 75%;
+  }
+  .sht-list-wrap .sht-right-sidebar {
+    display: block;
+  }
+}
+aside.comm-box {
+  border: 1px solid #e6e6e6;
+  padding: 10px;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+aside.comm-box .box-label {
+  font-weight: 700;
+  font-size: 14px;
+}
+aside.comm-box .box-content {
+  word-break:break-word;
+  font-size: 14px;
+}
+.button.is-primary.is-alt {
+  background: #9a8c84;
+  font-weight: 700;
+  font-size: 14px;
+  height: 2.3rem;
+  line-height: 1.5rem;
+}
+.media-left img {
+  border-radius: 50%;
+}
+.media-content p {
+  font-size: 12px;
+  font-weight: 700;
+  color: #8F99A3;
+}
+article.post {
+  position: relative;
+  margin: 0;
+  padding: 10px 20px;
+  border-bottom: 1px solid #E6EAEE;
+}
+article.post:last-child {
+  border-bottom: none;
+}
+.menu-list li{
+  padding: 5px;
+}
+
+.navbar-brand .brand {
+  font-size: 22px;
+  font-weight: 700;
+}
+.field.member-box {
+  align-items: center;
+  padding: 0px 12px;
+}
+.box {
+  padding: 6px 0;
+}
+
+.content h4 {
+  font-size: 14px;
+  margin-bottom: .2em;
+}
+
+.tag.list-body {
+  font-size: 11px;
+  padding: 0 7px;
+  height: 18px;
+  margin-left: 5px;
+}
+
+.media .media-right.comments {
+  font-size: 12px;
+}

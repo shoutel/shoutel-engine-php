@@ -1,0 +1,100 @@
+
+.va {
+  display: flex;
+  align-items: center;
+}
+
+html {
+  font-family: sans-serif;
+  color: white;
+}
+
+a {
+  color: #3b7adf;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #3b7adf;
+}
+
+hr {
+  background: #24272c;
+}
+
+.hero-head {
+  padding-top: 3px;
+}
+
+.hero {
+  background: #3c3c3c;
+}
+
+.hero-body {
+  padding: 3rem 1.5rem !important;
+}
+
+.hero-body .site-brand {
+  font-size: 32px;
+  color: #fff;
+}
+
+.title {
+  color: #505050;
+}
+
+.subtitle {
+  color: #ccc;
+}
+
+.navbar .navbar-menu {
+  background-color: transparent;
+}
+
+.navbar .navbar-item {
+  color: #e4e2ff;
+}
+
+.navbar .navbar-item:hover {
+  text-decoration: none;
+}
+
+.navbar .navbar-item.is-active {
+  color: #e4e2ff;
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.navbar .navbar-item:hover {
+  background: transparent;
+  color: white;
+}
+
+.navbar .navbar-item a {
+  margin-left: 1rem;
+  color: #e4e2ff;
+}
+
+.navbar .navbar-burger {
+  color: #fff;
+}
+
+.navbar .field.member-box .button:hover {
+  text-decoration: none;
+}
+
+.navbar .field.member-box .button.is-info.is-outlined {
+  background-color: #32a5d2;
+  color: #ffffff;
+  border-color: #4bb9e4;
+}
+
+.sht-posts {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: #F2F6FA;
+}
+
+.sht-posts .container {
+  max-width: 800px;
+}
