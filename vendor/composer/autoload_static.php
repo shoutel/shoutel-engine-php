@@ -6,20 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitcbc7c1e0c334e80ecda90f859a12eba7
 {
-    public static $prefixLengthsPsr4 = array (
-        'M' => 
-        array (
-            'Minifier\\' => 9,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Minifier\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/pfaciana/tiny-html-minifier/src',
-        ),
-    );
-
     public static $prefixesPsr0 = array (
         'M' => 
         array (
@@ -33,8 +19,6 @@ class ComposerStaticInitcbc7c1e0c334e80ecda90f859a12eba7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcbc7c1e0c334e80ecda90f859a12eba7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcbc7c1e0c334e80ecda90f859a12eba7::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitcbc7c1e0c334e80ecda90f859a12eba7::$prefixesPsr0;
 
         }, null, ClassLoader::class);

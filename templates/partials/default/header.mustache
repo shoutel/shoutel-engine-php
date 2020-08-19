@@ -1,7 +1,7 @@
 		<nav class="navbar is-white top-nav">
 			<div class="container">
 				<div class="navbar-brand">
-					<a class="navbar-item brand" href="#">{{site_name}}</a>
+					<a class="navbar-item brand" href="/">{{site_name}}</a>
 					<div class="navbar-burger burger" data-target="topNav">
 						<span></span>
 						<span></span>
@@ -10,9 +10,7 @@
 				</div>
 				<div id="topNav" class="navbar-menu">
 					<div class="navbar-start">
-						<a class="navbar-item" href="cover.html">홈</a>
-						<a class="navbar-item" href="landing.html">화제의 글</a>
-						<a class="navbar-item" href="blog.html">커뮤니티</a>
+						{{> default/menu}}
 					</div>
 					<div class="navbar-end">
 						<div class="field is-grouped member-box">

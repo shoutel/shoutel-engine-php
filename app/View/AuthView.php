@@ -6,8 +6,6 @@ class AuthView extends BaseApp
 	
 	public function login()
 	{
-		$db = $this->db;
-
 		Display::setDisplayTitle('Auth');
 
 		FrontAssets::load(false, 'headjs.js', 3, 'head');

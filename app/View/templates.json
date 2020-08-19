@@ -1,1 +1,1 @@
-{"AuthView":[{"template":"layout/default","views":["login","join","findMember"]}],"BulletinView":[{"template":"layout/default","views":["index"]}]}
+{"AuthView":[{"template":"layout/default","views":["login","join","findMember"]}],"BulletinView":[{"template":"layout/home","views":["index"]},{"template":"layout/default","views":["showList"]}]}

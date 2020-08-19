@@ -24,10 +24,15 @@ class HTMLDisplay extends Display
             if ($class)
             {
                 $default_view = $class->default_view;
-                $method = $act ? $act : $default_view;
+                $method = $act ? $act : null;
+
+                if (!$method) {
+                    $method = $default_view;
+                }
                 
                 if (!method_exists($class, $method)) {
-                    $method = $default_view;
+                    $method = null;
+                    $output = new CreateError(404, 'method_not_found');
                 }
             }
             else

@@ -1,6 +1,5 @@
 {
     "require": {
-        "mustache/mustache": "^2.13",
-        "pfaciana/tiny-html-minifier": "^3.0"
+        "mustache/mustache": "^2.13"
     }
 }

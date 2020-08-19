@@ -1,7 +1,5 @@
 <?php
 
-use Minifier\TinyMinify;
-
 class Display extends BaseApp
 {
 	public $no_template = FALSE;
@@ -168,13 +166,13 @@ class Display extends BaseApp
 
 		if ($api == 'json')
 		{
-			$display = new JSONDisplay($module, $act);
-			$display->init();
+			$display = new JSONDisplay();
+			$display->init($module, $act);
 		}
 		else
 		{
-			$display = new HTMLDisplay($module, $act);
-			$display->init();
+			$display = new HTMLDisplay();
+			$display->init($module, $act);
 		}
 
 		if (isset($display))
@@ -191,9 +189,13 @@ class Display extends BaseApp
 
 				if ($output instanceof CreateError)
 				{
-					$output = $this->getErrorMessage(500, $output->message);
+					$output = $this->getErrorMessage(
+						$output->status,
+						$output->message,
+						$output->statusCode
+					);
 				}
-				
+
 				if ($root)
 				{
 					$var = array(

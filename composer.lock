@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45d39ef2d38b4037825a5da2d7662c16",
+    "content-hash": "44273a8ace065fd738753ecd2e2ad1cb",
     "packages": [
         {
             "name": "mustache/mustache",
@@ -51,48 +51,6 @@
                 "templating"
             ],
             "time": "2019-11-23T21:40:31+00:00"
-        },
-        {
-            "name": "pfaciana/tiny-html-minifier",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pfaciana/tiny-html-minifier.git",
-                "reference": "9b305753a18ee6797c7cb2bfabe25ed36d454dc0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pfaciana/tiny-html-minifier/zipball/9b305753a18ee6797c7cb2bfabe25ed36d454dc0",
-                "reference": "9b305753a18ee6797c7cb2bfabe25ed36d454dc0",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Minifier\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jens Törnell",
-                    "email": "webblayout@gmail.com"
-                },
-                {
-                    "name": "Phil Faciana",
-                    "email": "phil@renderdev.com"
-                }
-            ],
-            "description": "Minify HTML in PHP with just a single class",
-            "keywords": [
-                "html",
-                "minifier",
-                "minify"
-            ],
-            "time": "2020-07-27T03:41:45+00:00"
         }
     ],
     "packages-dev": [],

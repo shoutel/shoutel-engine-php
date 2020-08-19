@@ -20,7 +20,7 @@ class BulletinView extends BaseApp
 		$pagination = $bulletinModel->getBoardListPagination($count);
 		$page_buttons = $bulletinModel->getPaginationButton($pagination);
 
-		$output = $this->render('bulletin/body', array(
+		$output = $this->render('bulletin/home', array(
 			'posts' => $list,
 			'pagination' => $page_buttons
 		));
@@ -30,6 +30,10 @@ class BulletinView extends BaseApp
 	
 	public function showList()
 	{
+		FrontAssets::load(true, 'css/skin/default/bulma.min.css', 1);
+		FrontAssets::load(true, 'css/skin/default/forum.css', 3);
+		FrontAssets::load(false, 'js/menu.js', 3, 'body');
+
 		return '2332';
 	}
 }
