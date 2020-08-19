@@ -9,6 +9,8 @@ class Display extends BaseApp
 	public $module = NULL;
 
 	public $method = NULL;
+
+	private $template_vars = NULL;
 	
 	protected $output = NULL;
 
@@ -58,20 +60,21 @@ class Display extends BaseApp
 		$actual_link = get_link();
 		$img_revision = FrontAssets::manageRevision('images');
 
-		$content = $this->render('common/default_html', array(
+		$var = array(
 			'body_content' => $content,
 			'css' => $assets->css,
 			'js' => $assets->js,
 			'body_js' => $assets->body_js,
 			'curr_url' => $actual_link,
 			'img_revision' => $img_revision,
-			'default_locale' => DEFAULT_LOCALE,
-			'robots_noindex' => self::getDisplayNoindex(),
-			'title' => self::getDisplayTitle(),
-			'site_name' => SITE_NAME,
 			'site_description' => self::getDisplayDescription(),
-			'site_keywords' => SITE_KEYWORDS
-		));
+			'robots_noindex' => self::getDisplayNoindex(),
+			'title' => self::getDisplayTitle()
+		);
+
+		$var = array_merge($this->template_vars, $var);
+
+		$content = $this->render('common/default_html', $var);
 
 		return $content;
 	}
@@ -138,6 +141,13 @@ class Display extends BaseApp
 
 		// include common CSS
 		FrontAssets::load(true, 'css/common/common.css', -1000000);
+		FrontAssets::load(true, 'font-awesome/css/font-awesome.min.css', -1000000);
+
+		$this->template_vars = array(
+			'default_locale' => DEFAULT_LOCALE,
+			'site_name' => SITE_NAME,
+			'site_keywords' => SITE_KEYWORDS
+		);
 
 		if ($api == 'json')
 		{
@@ -164,17 +174,27 @@ class Display extends BaseApp
 
 				if ($output instanceof CreateError)
 				{
-					$output = $this->render('msg/defaultMessage', array(
+					http_response_code($statusCode);
+
+					$var = array(
 						'msg_title' => 'Error',
 						'message' => $output->message
-					));
+					);
+
+					$var = array_merge($this->template_vars, $var);
+
+					$output = $this->render('msg/defaultMessage', $var);
 				}
 				
 				if ($root)
 				{
-					$output = $this->render($root, array(
+					$var = array(
 						'content' => $output
-					));
+					);
+
+					$var = array_merge($this->template_vars, $var);
+
+					$output = $this->render($root, $var);
 				}
 
 				$output = $this->getDisplayDefaultHtml($output);

@@ -10,8 +10,6 @@ class CreateError
 	{
         if ($statusCode)
         {
-            http_response_code($statusCode);
-
             $this->status = 'error';
             $this->message = $message;
         }
