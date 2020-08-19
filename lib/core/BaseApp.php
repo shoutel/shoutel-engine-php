@@ -4,15 +4,6 @@ use Mustache\mustache;
 
 class BaseApp
 {
-	public $db = NULL;
-	
-	public function init()
-	{
-		$database = new Database();
-		$database->init();
-		$this->db = $database;
-	}
-
 	public function invoke($param = array())
 	{
 		if (get_link(false) != DEFAULT_URL)
@@ -20,6 +11,8 @@ class BaseApp
 			$uri = $_SERVER['REQUEST_URI'];
 			$this->redirect(DEFAULT_URL . $uri);
 		}
+
+		Database::init();
 
 		$display = new Display();
 		$display->displayAction($param);

@@ -2,10 +2,17 @@
 
 class DBMySql extends BaseApp
 {
-	public $database = null;
+	private $conf = NULL;
 
-	public function init($conf = null)
+	public function __construct($conf = null)
 	{
+		$this->conf = $conf;
+	}
+
+	public function connection()
+	{
+		$conf = $this->conf;
+
 		if ($conf)
 		{
 			$dbms = $conf->dbms;
@@ -20,7 +27,7 @@ class DBMySql extends BaseApp
 			try
 			{
 				$dsn = 'mysql:host=' . $host . ';dbname=' . $db . ';charset=utf8mb4';
-				$this->database = new PDO($dsn, $user, $pass);
+				return new PDO($dsn, $user, $pass);
 			}
 			catch(PDOException $e)
 			{

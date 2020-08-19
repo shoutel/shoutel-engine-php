@@ -11,7 +11,21 @@ class BulletinView extends BaseApp
 		FrontAssets::load(true, 'css/skin/default/forum.css', 3);
 		FrontAssets::load(false, 'js/menu.js', 3, 'body');
 
-		return 'sdfsdf';
+		$bulletinModel = $this->loadModel('bulletin');
+		$bulletinQuery = new BulletinQuery();
+
+		$list = $bulletinModel->getBoardAllList();
+		$count = $bulletinQuery->listAllCount();
+
+		$pagination = $bulletinModel->getBoardListPagination($count);
+		$page_buttons = $bulletinModel->getPaginationButton($pagination);
+
+		$output = $this->render('bulletin/body', array(
+			'posts' => $list,
+			'pagination' => $page_buttons
+		));
+
+		return $output;
 	}
 	
 	public function showList()

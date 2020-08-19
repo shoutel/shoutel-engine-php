@@ -36,8 +36,21 @@ $path = array(
   PROJECT_ROOT . '/lib/classes/',
   PROJECT_ROOT . '/app/Model/',
   PROJECT_ROOT . '/app/Controller/',
-  PROJECT_ROOT . '/app/View/'
+  PROJECT_ROOT . '/app/View/',
+  PROJECT_ROOT . '/app/Query/'
 );
 
 spl_autoload_register('load_class');
 error_reporting(E_ALL | E_NOTICE);
+
+function setDefaultError($no, $message)
+{
+  $error = error_get_last();
+  $output = "";
+  foreach ($error as $info => $string)
+      $output .= "{$info}: {$string}\n";
+  return $output;
+}
+
+if (error_get_last())
+  ob_start('setDefaultError');

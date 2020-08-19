@@ -121,3 +121,17 @@ article.post:last-child {
 .media .media-right.comments {
   font-size: 12px;
 }
+
+.field.has-addons.pagination {
+  justify-content: center;
+}
+
+.field.pagination .button {
+  padding-left: .75em;
+  padding-right: .75em;
+  height: 32px;
+}
+
+.field.pagination .button:hover {
+  text-decoration: none;
+}

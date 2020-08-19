@@ -16,8 +16,8 @@
      \____/\_| \_/\____/\___/\_| \_/\____/ 
 -------------------------------------------
 */
+
 require_once('./lib/init.php');
 
-$controller = new BaseApp();
-$controller->init();
-$controller->invoke();
+$app = new BaseApp();
+$app->invoke();

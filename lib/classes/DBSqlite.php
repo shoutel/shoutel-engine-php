@@ -2,14 +2,21 @@
 
 class DBSqlite extends BaseApp
 {
-	public $database = null;
+	private $conf = NULL;
 
-	public function init($conf = null)
+	public function __construct($conf = null)
 	{
+		$this->conf = $conf;
+	}
+
+	public function connection()
+	{
+		$conf = $this->conf;
+
 		if ($conf)
 		{
 			$dbms = $conf->dbms;
-			$db   = $conf->db_path;
+			$db = $conf->db;
 		}
 
 		if (isset($dbms))
@@ -17,7 +24,7 @@ class DBSqlite extends BaseApp
 			try
 			{
 				$dsn = 'sqlite:' . $db;
-				$this->database = new PDO($dsn);
+				return new PDO($dsn);
 			}
 			catch(PDOException $e)
 			{

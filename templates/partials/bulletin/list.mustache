@@ -1,0 +1,26 @@
+<div class="box content">
+    {{#posts}}
+    <article class="post">
+        <h4>{{title}}</h4>
+        <div class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <a href="#">@{{nick_name}}</a>
+                        <span>{{register_date}}</span>
+                        <span class="tag list-body">{{board_name}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="media-right comments">
+                <span class="has-text-grey-light"><i class="fa fa-comments"></i> 1</span>
+            </div>
+        </div>
+    </article>
+    {{/posts}}
+    {{^posts}}
+    <article class="post">
+        <h4>No post</h4>
+    </article>
+    {{/posts}}
+</div>

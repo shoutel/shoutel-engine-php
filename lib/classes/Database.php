@@ -2,9 +2,9 @@
 
 class Database extends BaseApp
 {
-	private $conn = NULL;
+	private static $conn = NULL;
 	
-	public function init()
+	public static function init()
 	{
 		if (defined('DB_SYSTEM'))
 		{
@@ -33,13 +33,13 @@ class Database extends BaseApp
 			{
 				case 'mysql':
 					$mysql = new DBMySql($conf);
-					$mysql->init();
-					$this->conn = $mysql->database;
+					$conn = $mysql->connection();
+					self::$conn = $conn;
 					break;
 				case 'sqlite':
 					$sqlite = new DBSqlite($conf);
-					$sqlite->init();
-					$this->conn = $sqlite->database;
+					$conn = $sqlite->connection();
+					self::$conn = $conn;
 					break;
 				default:
 					echo 'The database configuration file is invalid.';
@@ -52,17 +52,49 @@ class Database extends BaseApp
 	{
 		if ($q)
 		{
-			$sth = $this->conn->prepare($query);
+			$sth = self::$conn->prepare($query);
 		}
 		else
 		{
-			$sth = $this->conn->prepare(
+			$sth = self::$conn->prepare(
 				$query,
 				array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY)
 			);
 		}
 
-		$sth->execute($option);
+		if ($option)
+		{
+			$param_no = 1;
+
+			foreach ($option as $k => $v)
+			{
+				if ($q)
+				{
+					if (gettype($v) == 'string')
+					{
+						$sth->bindValue($param_no, $v, PDO::PARAM_STR);
+					}
+					else
+					{
+						$sth->bindValue($param_no, $v, PDO::PARAM_INT);
+					}
+					$param_no++;
+				}
+				else
+				{
+					if (gettype($v) == 'string')
+					{
+						$sth->bindValue($k, $v, PDO::PARAM_STR);
+					}
+					else
+					{
+						$sth->bindValue($k, $v, PDO::PARAM_INT);
+					}
+				}
+			}
+		}
+
+		$sth->execute();
 
 		$err = $sth->errorInfo();
 
@@ -73,7 +105,8 @@ class Database extends BaseApp
 		if ($state != 00000)
 		{
 			$err_msg = 'SQL Error ' . $err_code . ' (' . $state . '): ' . $msg;
-			$this->showError(500, $err_msg);
+			echo $err_msg;
+			exit();
 		}
 		else
 		{

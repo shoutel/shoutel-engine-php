@@ -54,6 +54,23 @@ class Display extends BaseApp
 		return false;
 	}
 
+	public function getErrorMessage($no, $message, $statusCode = 500)
+	{
+		http_response_code($statusCode);
+
+		$var = array(
+			'msg_title' => 'Error',
+			'err_in_code' => $no,
+			'message' => $message
+		);
+
+		$var = array_merge($this->template_vars, $var);
+
+		$output = $this->render('msg/defaultMessage', $var);
+
+		return $output;
+	}
+
 	public function getDisplayDefaultHtml($content)
 	{
 		$assets = FrontAssets::parseHtml();
@@ -174,16 +191,7 @@ class Display extends BaseApp
 
 				if ($output instanceof CreateError)
 				{
-					http_response_code($statusCode);
-
-					$var = array(
-						'msg_title' => 'Error',
-						'message' => $output->message
-					);
-
-					$var = array_merge($this->template_vars, $var);
-
-					$output = $this->render('msg/defaultMessage', $var);
+					$output = $this->getErrorMessage(500, $output->message);
 				}
 				
 				if ($root)
@@ -215,7 +223,7 @@ class Display extends BaseApp
 				
 				$output = json_encode($obj);
 			}
-			
+
 			print $output;
 			exit();
 		}

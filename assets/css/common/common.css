@@ -38,4 +38,5 @@
 	font-size: 12px;
 	text-decoration: none;
 	background-color: #555;
+	box-sizing: content-box;
 }
