@@ -12,7 +12,7 @@ define('ASSETS_ROOT', PROJECT_ROOT . '/assets/');
 define('COMMON_VIEW_PATH', VIEW_ROOT . 'commons/');
 define('ERROR_VIEW_PATH', VIEW_ROOT . 'errors/');
 
-define('DEFAULT_CLASS', 'bulletin');
+define('DEFAULT_CLASS', 'home');
 define('DEFAULT_HOME', 'index');
 
 $chk_install = new stdClass();

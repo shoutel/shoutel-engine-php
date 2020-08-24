@@ -2,11 +2,11 @@
 
 class BulletinModel extends BaseApp
 {
-    public $list_count = NULL;
+    private $list_count = NULL;
 
-    public $page = NULL;
+    private $count = NULL;
 
-    public $one_section = 10;
+    private $page = NULL;
 
     public function getBoardInfoByBoardId($board_id)
     {
@@ -21,123 +21,18 @@ class BulletinModel extends BaseApp
         return $bulletinQuery->findBoard($arr);
     }
 
-    public function getPaginationButton($pagination)
+    public function getBulletinPagination()
     {
-        $output = array();
+        $paginationModel = $this->loadModel('pagination');
 
-        foreach ($pagination as $p)
-		{
-			$obj = new stdClass();
-			$obj->page = $p->page;
-			switch ($p->type)
-			{
-				case 'onePage':
-					$obj->button = '&lt;&lt;';
-					break;
-				case 'prevPage':
-					$obj->button = '&lt;';
-					break;
-				case 'currentPage':
-				case 'page':
-					$obj->button = $obj->page;
-					break;
-				case 'nextPage':
-					$obj->button = '&gt;';
-					break;
-				case 'endPage':
-					$obj->button = '&gt;&gt;';
-					break;
-			}
+        $paginationModel->list_count = $this->list_count;
+        $paginationModel->page = $this->page;
+        $paginationModel->count = $this->count;
 
-			array_push($output, $obj);
-        }
+        $pagination = $paginationModel->getPagination();
+        $page_buttons = $paginationModel->getPaginationButton($pagination);
 
-        return $output;
-    }
-
-    public function getBoardListPagination($count)
-    {
-        $list_count = $this->list_count;
-        $page = $this->page;
-
-        $total_page = ceil($count / $list_count);
-
-        if($page < 1 || ($total_page && $page > $total_page)) {
-            return array();
-        }
-
-        $one_section = $this->one_section;
-        $current_section = ceil($page / $one_section);
-        $all_section = ceil($total_page / $one_section);
-
-        $first_page = ($current_section * $one_section) - ($one_section - 1);
-
-        $last_page = $current_section * $one_section;
-
-        if ($current_section == $all_section)
-            $last_page = $total_page;
-
-        $prev_page = (($current_section - 1) * $one_section);
-        $next_page = (($current_section + 1) * $one_section) - ($one_section - 1);
-        
-        $output = array();
-        if ($page != 1)
-        {
-            $pagination = new stdClass();
-            $pagination->type = 'onePage';
-            $pagination->page = 1;
-
-            array_push($output, $pagination);
-        }
-
-        if ($current_section != 1)
-        {
-            $pagination = new stdClass();
-            $pagination->type = 'prevPage';
-            $pagination->page = $prev_page;
-
-            array_push($output, $pagination);
-        }
-
-        for ($i = $first_page; $i <= $last_page; $i++)
-        {
-            if ($i == $page)
-            {
-                $pagination = new stdClass();
-                $pagination->type = 'currentPage';
-                $pagination->page = $i;
-
-                array_push($output, $pagination);
-            }
-            else
-            {
-                $pagination = new stdClass();
-                $pagination->type = 'page';
-                $pagination->page = $i;
-
-                array_push($output, $pagination);
-            }
-        }
-
-        if ($current_section != $all_section)
-        {
-            $pagination = new stdClass();
-            $pagination->type = 'nextPage';
-            $pagination->page = $next_page;
-
-            array_push($output, $pagination);
-        }
-
-        if ($page != $total_page)
-        {
-            $pagination = new stdClass();
-            $pagination->type = 'endPage';
-            $pagination->page = $total_page;
-
-            array_push($output, $pagination);
-        }
-
-        return $output;
+        return $page_buttons;
     }
 
     public function getBoardAllList()
@@ -153,6 +48,9 @@ class BulletinModel extends BaseApp
         $before = $list_count * ($page - 1);
 
         $bulletinQuery = new BulletinQuery();
+
+        $count = $bulletinQuery->listAllCount();
+        $this->count = $count;
 
         $arr = array(
 			':before' => (int)$before,
@@ -170,6 +68,20 @@ class BulletinModel extends BaseApp
         }
 
         return $arr;
+    }
+
+    public function getBoardAllListPagination()
+    {
+        $paginationModel = $this->loadModel('pagination');
+
+        $paginationModel->list_count = $this->list_count;
+        $paginationModel->page = $this->page;
+        $paginationModel->count = $this->count;
+
+        $pagination = $paginationModel->getPagination();
+        $page_buttons = $paginationModel->getPaginationButton($pagination);
+
+        return $page_buttons;
     }
 
     public function getBoardItem($item)
@@ -198,6 +110,77 @@ class BulletinModel extends BaseApp
         $board_id = $obj->board_id;
         $board_info = $this->getBoardInfoByBoardId($board_id);
         $obj->board_name = $board_info->board_name;
+
+        return $obj;
+    }
+
+    /**
+     * get board (community) list
+     */
+    public function getBoardList()
+    {
+        $page = get_value('page');
+
+		if (!$page)
+			$page = 1;
+
+        $list_count = 30;
+        $this->page = $page;
+        $this->list_count = $list_count;
+        $before = $list_count * ($page - 1);
+
+        $bulletinQuery = new BulletinQuery();
+
+        $count = $bulletinQuery->listBoardListCount();
+        $this->count = $count;
+
+        $arr = array(
+			':before' => (int)$before,
+			':list_count' => (int)$list_count
+		);
+
+        $list = $bulletinQuery->boardList($arr);
+
+        $arr = array();
+
+        foreach ($list as $i)
+        {
+            $item = $this->getBoardListItem($i);
+            array_push($arr, $item);
+        }
+
+        return $arr;
+    }
+
+    public function getBoardListItem($item)
+    {
+        $obj = new stdClass();
+
+        // set default value
+        $obj->no = $item['no'];
+        $obj->board_id = $item['board_id'];
+        $obj->board_name = $item['board_name'];
+        $obj->board_admin = $item['board_admin'];
+        $obj->description = $item['description'];
+        $obj->category = $item['category'];
+        $obj->board_cover = $item['board_cover'];
+        $obj->register_date = $item['register_date'];
+
+        // additional info
+        $authModel = $this->loadModel('auth');
+        $member_no = $obj->board_admin;
+        $account_info = $authModel->getAccountInfo($member_no);
+        $obj->nick_name = $account_info->nick_name;
+
+        $managers = $item['board_managers'];
+        $obj->board_managers = array();
+        if ($managers)
+        {
+            $managers = json_decode($managers);
+            $obj->board_managers = $managers->boardManagers;
+        }
+
+        $obj->settings = json_decode($item['board_settings']);
 
         return $obj;
     }

@@ -69,6 +69,19 @@ class Display extends BaseApp
 		return $output;
 	}
 
+	public function getNotFoundErrorMessage()
+	{
+		http_response_code(404);
+
+		$var = array();
+
+		$var = array_merge($this->template_vars, $var);
+
+		$output = $this->render('msg/404NotFound', $var);
+
+		return $output;
+	}
+
 	public function getDisplayDefaultHtml($content)
 	{
 		$assets = FrontAssets::parseHtml();
@@ -194,6 +207,7 @@ class Display extends BaseApp
 						$output->message,
 						$output->statusCode
 					);
+					self::setDisplayNoindex(true);
 				}
 
 				if ($root)
@@ -207,7 +221,15 @@ class Display extends BaseApp
 					$output = $this->render($root, $var);
 				}
 
-				$output = $this->getDisplayDefaultHtml($output);
+				if ($output instanceof NotFoundError)
+				{
+					$output = $this->getNotFoundErrorMessage();
+					self::setDisplayNoindex(true);
+				}
+				else
+				{
+					$output = $this->getDisplayDefaultHtml($output);
+				}
 			}
 			else
 			{

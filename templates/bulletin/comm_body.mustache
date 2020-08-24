@@ -1,25 +1,25 @@
 <section class="sht-list-wrap">
-    <div class="columns">
-        <div class="column is-9 sht-list">
-            {{> bulletin/list}}
-            <div class="field has-addons pagination">
-                {{#pagination}}
-                <p class="control">
-                    <a class="button" href="/bulletin?page={{page}}">
-                        <span>{{button}}</span>
-                    </a>
-                </p>
-                {{/pagination}}
-            </div>
-        </div>
-        <div class="column is-3 sht-right-sidebar">
-            <aside class="comm-box">
-                <p class="box-label">
-                    커뮤니티 소개
-                </p>
-                <p class="box-content">sdfsdfsdfsdfsdfsdfsdfsdff</p>
-            </aside>
-            <a class="button is-primary is-block is-alt is-large" href="#">New Post</a>
-        </div>
+  <div class="columns">
+    <div class="column is-9 sht-list">
+      {{> bulletin/list}}
+      <div class="field has-addons pagination">
+        {{#pagination}}
+        <p class="control">
+          <a class="button" href="/bulletin?page={{page}}">
+            <span>{{button}}</span>
+          </a>
+        </p>
+        {{/pagination}}
+      </div>
     </div>
+    <div class="column is-3 sht-right-sidebar">
+      <aside class="comm-box">
+        <p class="box-label">
+          커뮤니티 소개
+        </p>
+        <p class="box-content">sdfsdfsdfsdfsdfsdfsdfsdff</p>
+      </aside>
+      <a class="button is-primary is-block is-alt is-large" href="#">New Post</a>
+    </div>
+  </div>
 </section>

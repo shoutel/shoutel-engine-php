@@ -30,6 +30,9 @@ class FrontAssets
 
 		$already_exists = false;
 
+		if (!startsWith($file, '//'))
+			$file = $assetsDir . $file;
+
 		foreach ($list as $l)
 		{
 			if ($l['file'] == $file)
@@ -43,7 +46,7 @@ class FrontAssets
 		{
 			$list[] = array(
 				'pos' => $pos,
-				'file' => $assetsDir . $file
+				'file' => $file
 			);
 
 			uasort($list, function ($a, $b){
@@ -111,19 +114,19 @@ class FrontAssets
 		foreach ($obj->styleList as $s)
 		{
 			
-			$output->css .= '<link rel="stylesheet" href="' . $s['file'] . '?rev=' . $rev . '" type="text/css" />' . "\n    ";
+			$output->css .= '<link rel="stylesheet" href="' . $s['file'] . '?rev=' . $rev . '" type="text/css" />' . "\n";
 		}
 
 		$rev = self::manageRevision('js');
 		foreach ($obj->jsList as $s)
 		{
-			$output->js .= '<script src="' . $s['file'] . '?rev=' . $rev . '"></script>' . "\n    ";
+			$output->js .= '<script src="' . $s['file'] . '?rev=' . $rev . '"></script>' . "\n";
 		}
 
 		$rev = self::manageRevision('bodyJs');
 		foreach ($obj->bodyJsList as $s)
 		{
-			$output->body_js .= '<script src="' . $s['file'] . '?rev=' . $rev . '"></script>' . "\n    ";
+			$output->body_js .= '<script src="' . $s['file'] . '?rev=' . $rev . '"></script>' . "\n";
 		}
 
 		return $output;

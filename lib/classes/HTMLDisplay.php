@@ -32,12 +32,12 @@ class HTMLDisplay extends Display
                 
                 if (!method_exists($class, $method)) {
                     $method = null;
-                    $output = new CreateError(404, 'method_not_found');
+                    $output = new NotFoundError();
                 }
             }
             else
             {
-                $output = new CreateError(404, 'class_not_found');
+                $output = new NotFoundError();
             }
         }
         else

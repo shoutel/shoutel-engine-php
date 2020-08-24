@@ -4,5 +4,8 @@ RewriteRule ^(app|data|examples|lang|lib|templates)/.+\.(php(\.example)?|json|mu
 RewriteRule ^vendor/ - [L,F]
 RewriteRule ^(\.git|composer\.|LICENSE|README(\.md)?) - [L,F]
 
-RewriteRule ^([a-zA-Z0-9_]+)/?$ ./index.php?module=$1 [L,QSA]
+RewriteRule ^c/([a-zA-Z0-9_]+)?$ ./index.php?module=bulletin&boardId=$1 [L,QSA]
+RewriteRule ^c/([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)?$ ./index.php?module=bulletin&boardId=$1&key=$2 [L,QSA]
+
+RewriteRule ^([a-zA-Z0-9_]+)?$ ./index.php?module=$1 [L,QSA]
 RewriteRule ^([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)?$ ./index.php?module=$1&action=$2 [L,QSA]

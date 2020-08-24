@@ -2,39 +2,35 @@
 
 class BulletinView extends BaseApp
 {
-	public $default_view = 'index';
-	
-	public function index()
+	public $default_view = 'bulletin';
+
+	public function bulletin()
 	{
-		FrontAssets::load(true, 'css/skin/default/bulma.min.css', 1);
-		FrontAssets::load(true, 'css/skin/default/home.css', 2);
-		FrontAssets::load(true, 'css/skin/default/forum.css', 3);
-		FrontAssets::load(false, 'js/menu.js', 3, 'body');
-
-		$bulletinModel = $this->loadModel('bulletin');
-		$bulletinQuery = new BulletinQuery();
-
-		$list = $bulletinModel->getBoardAllList();
-		$count = $bulletinQuery->listAllCount();
-
-		$pagination = $bulletinModel->getBoardListPagination($count);
-		$page_buttons = $bulletinModel->getPaginationButton($pagination);
-
-		$output = $this->render('bulletin/home', array(
-			'posts' => $list,
-			'pagination' => $page_buttons
-		));
-
-		return $output;
-	}
-	
-	public function showList()
-	{
-		FrontAssets::load(true, 'css/skin/default/bulma.min.css', 1);
+		FrontAssets::load(true, '//cdn.shoutel.com/bulma/bulma.min.css', 1);
 		FrontAssets::load(true, 'css/skin/default/forum.css', 3);
 		FrontAssets::load(false, 'js/menu.js', 3, 'body');
 
 		return '2332';
+	}
+
+	public function commList()
+	{
+		FrontAssets::load(true, '//cdn.shoutel.com/bulma/bulma.min.css', 1);
+		FrontAssets::load(true, 'css/skin/default/forum.css', 3);
+		FrontAssets::load(true, 'css/skin/default/card.css', 3);
+		FrontAssets::load(false, 'js/menu.js', 3, 'body');
+
+		$bulletinModel = $this->loadModel('bulletin');
+
+		$list = $bulletinModel->getBoardList();
+		$pagination = $bulletinModel->getBulletinPagination();
+
+		$output = $this->render('community/list', array(
+			'comm_list' => $list,
+			'pagination' => $pagination
+		));
+
+		return $output;
 	}
 }
 

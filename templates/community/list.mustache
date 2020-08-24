@@ -1,0 +1,19 @@
+<div class="container comm-list">
+  <div class="buttons">
+    <a href="/community/create" class="button is-link">커뮤니티 생성</a>
+  </div>
+  <div class="columns">
+    {{#comm_list}}
+    {{> community/card}}
+    {{/comm_list}}
+  </div>
+  <div class="field has-addons pagination">
+    {{#pagination}}
+    <p class="control">
+      <a class="button" href="/community?page={{page}}">
+        <span>{{button}}</span>
+      </a>
+    </p>
+    {{/pagination}}
+  </div>
+</div>

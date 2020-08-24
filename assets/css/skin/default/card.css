@@ -1,0 +1,31 @@
+.container.comm-list {
+    padding: 40px 0;
+}
+
+.card .card_image {
+    width: 100%;
+}
+
+.card .card_content {
+    padding: 20px;
+}
+
+.card .card_content .board-id {
+    margin-bottom: 10px;
+    line-height: .95em;
+    word-break: break-word;
+}
+
+.card .card_content .board-id i {
+    font-size: 12px;
+}
+
+.card .card_content h4 {
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.3em;
+}
+
+.card .card_content p {
+    font-size: 14px;
+}

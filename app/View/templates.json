@@ -1,1 +1,36 @@
-{"AuthView":[{"template":"layout/default","views":["login","join","findMember"]}],"BulletinView":[{"template":"layout/home","views":["index"]},{"template":"layout/default","views":["showList"]}]}
+{
+  "AuthView":[
+    {
+      "template":"layout/default",
+      "views":[
+        "login",
+        "join",
+        "findMember"
+      ]
+    }
+  ],
+  "HomeView":[
+    {
+      "template":"layout/home",
+      "views":["index"]
+    }
+  ],
+  "BulletinView":[
+    {
+      "template":"layout/default",
+      "views":["bulletin", "commList"]
+    }
+  ],
+  "TrendingView":[
+    {
+      "template":"layout/default",
+      "views":["index"]
+    }
+  ],
+  "CommunityView":[
+    {
+      "template":"layout/default",
+      "views":["index"]
+    }
+  ]
+}
