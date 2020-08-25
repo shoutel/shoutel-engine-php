@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteRule ^(app|data|examples|lang|lib|templates)/.+\.(php(\.example)?|json|mustache)$ - [L,F]
+RewriteRule ^(app|data|examples|lang|lib|templates)/.+\.(php(\.example)?|json|mustache|sql)$ - [L,F]
 RewriteRule ^vendor/ - [L,F]
 RewriteRule ^(\.git|composer\.|LICENSE|README(\.md)?) - [L,F]
 
