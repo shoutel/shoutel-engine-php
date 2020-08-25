@@ -1,31 +1,47 @@
-.container.comm-list {
-    padding: 40px 0;
+.card {
+  border-radius: 12px;
 }
 
 .card .card_image {
-    width: 100%;
+  width: 100%;
+  height: 120px;
+  background-color: #fafafa;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+.card .card_image .link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 .card .card_content {
-    padding: 20px;
+  padding: 20px;
 }
 
 .card .card_content .board-id {
-    margin-bottom: 10px;
-    line-height: .95em;
-    word-break: break-word;
+  margin-bottom: 10px;
+  line-height: .95em;
+  word-break: break-word;
 }
 
 .card .card_content .board-id i {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .card .card_content h4 {
-    font-size: 16px;
-    margin: 0;
-    line-height: 1.3em;
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.3em;
 }
 
 .card .card_content p {
-    font-size: 14px;
+  font-size: 14px;
 }

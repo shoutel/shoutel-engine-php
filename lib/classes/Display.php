@@ -209,6 +209,12 @@ class Display extends BaseApp
 					);
 					self::setDisplayNoindex(true);
 				}
+				elseif ($output instanceof NotFoundError)
+				{
+					$root = NULL;
+					$output = $this->getNotFoundErrorMessage();
+					self::setDisplayNoindex(true);
+				}
 
 				if ($root)
 				{
@@ -218,17 +224,9 @@ class Display extends BaseApp
 
 					$var = array_merge($this->template_vars, $var);
 
-					$output = $this->render($root, $var);
-				}
+					$render = $this->render($root, $var);
 
-				if ($output instanceof NotFoundError)
-				{
-					$output = $this->getNotFoundErrorMessage();
-					self::setDisplayNoindex(true);
-				}
-				else
-				{
-					$output = $this->getDisplayDefaultHtml($output);
+					$output = $this->getDisplayDefaultHtml($render);
 				}
 			}
 			else

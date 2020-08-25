@@ -1,7 +1,9 @@
 <div class="column is-4">
   <div class="card">
     {{#board_cover}}
-    <img class="card_image" src="{{board_cover}}" alt="Avatar">
+    <div class="card_image" style="background-image:url({{board_cover}})">
+      <a href="/c/{{board_id}}" alt="커뮤니티 커버 이미지" class="link"></a>
+    </div>
     {{/board_cover}}
     <div class="card_content">
       <h4><a href="/c/{{board_id}}"><b>{{board_name}}</b></a></h4>

@@ -2,6 +2,8 @@
 
 class BulletinModel extends BaseApp
 {
+    public $board_id = NULL;
+
     private $list_count = NULL;
 
     private $count = NULL;
@@ -109,7 +111,7 @@ class BulletinModel extends BaseApp
 
         $board_id = $obj->board_id;
         $board_info = $this->getBoardInfoByBoardId($board_id);
-        $obj->board_name = $board_info->board_name;
+        if ($board_info) $obj->board_name = $board_info->board_name;
 
         return $obj;
     }
@@ -131,7 +133,7 @@ class BulletinModel extends BaseApp
 
         $bulletinQuery = new BulletinQuery();
 
-        $count = $bulletinQuery->listBoardListCount();
+        $count = $bulletinQuery->boardListCount();
         $this->count = $count;
 
         $arr = array(
@@ -183,5 +185,46 @@ class BulletinModel extends BaseApp
         $obj->settings = json_decode($item['board_settings']);
 
         return $obj;
+    }
+
+    public function getBoardArticleList()
+    {
+        $page = get_value('page');
+        $board_id = $this->board_id;
+
+		if (!$page)
+			$page = 1;
+
+        $list_count = 30;
+        $this->page = $page;
+        $this->list_count = $list_count;
+        $before = $list_count * ($page - 1);
+
+        $bulletinQuery = new BulletinQuery();
+
+        $arr = array(
+            ':board_id' => (string)$board_id
+        );
+
+        $count = $bulletinQuery->listCount($arr);
+        $this->count = $count;
+
+        $limit = array(
+            ':before' => (int)$before,
+			':list_count' => (int)$list_count
+        );
+        $arr = array_merge($arr, $limit);
+
+        $list = $bulletinQuery->boardArticleList($arr);
+
+        $arr = array();
+
+        foreach ($list as $i)
+        {
+            $item = $this->getBoardItem($i);
+            array_push($arr, $item);
+        }
+
+        return $arr;
     }
 }

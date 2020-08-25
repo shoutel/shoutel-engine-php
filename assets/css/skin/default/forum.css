@@ -27,11 +27,53 @@ footer.sht-footer .sht-policy-list .policy-list a {
 .top-nav {
   border-top: 3px solid #9a8c84;
 }
-.top-nav .container {
-  border-bottom: 1px solid #E6EAEE;
+
+.sht-comm-cover {
+  background-color: #3e3734;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
+.sht-comm-cover .container {
+  height: 140px;
+}
+.sht-comm-title {
+  border-bottom: 1px solid #eee;
+}
+.sht-comm-title .sticky {
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, .9);
+  z-index: 999999999;
+}
+.sht-comm-title .title-area {
+  max-width: 960px;
+  padding: .75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.sht-comm-title .title-area .left {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.sht-comm-title .title-area h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+@media screen and (min-width: 900px) {
+  .sht-comm-cover .container {
+    height: 260px;
+  }
+}
+
 .sht-list-wrap .columns {
-  padding: 2rem 0;
+  padding: 0;
+  padding-bottom: 2rem;
   max-width: 960px;
   margin: 0 auto;
 }
@@ -44,7 +86,14 @@ footer.sht-footer .sht-policy-list .policy-list a {
 .sht-list-wrap .sht-right-sidebar {
   display: none;
 }
+.container.comm-list {
+  padding: 40px 20px;
+}
+
 @media screen and (min-width: 1024px) {
+  .container.comm-list {
+    padding: 40px 0;
+  }
   .sht-list-wrap .sht-list {
     width: 75%;
   }
@@ -72,6 +121,11 @@ aside.comm-box .box-content {
   font-size: 14px;
   height: 2.3rem;
   line-height: 1.5rem;
+}
+.button.is-primary.is-alt.join {
+  background: transparent;
+  border: 1px solid #9a8c84;
+  color: #000;
 }
 .media-left img {
   border-radius: 50%;
@@ -127,9 +181,15 @@ article.post:last-child {
 }
 
 .field.pagination .button {
-  padding-left: .75em;
-  padding-right: .75em;
-  height: 32px;
+  padding-left: .5em;
+  padding-right: .5em;
+  height: 24px;
+  font-size: 14px;
+}
+
+.field.pagination .button.current {
+  background-color: #9a8c84;
+  color: #fff;
 }
 
 .field.pagination .button:hover {

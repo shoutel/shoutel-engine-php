@@ -86,7 +86,7 @@ class BulletinQuery
         return $sth->fetchAll();
     }
 
-    public function listBoardListCount()
+    public function boardListCount()
     {
         $query = 'select count(*) from st_board_list';
 
@@ -100,5 +100,36 @@ class BulletinQuery
         }
 
         return $sth->fetchColumn();
+    }
+
+    public function listCount($arr)
+    {
+        $query = 'select count(*) from st_board where board_id = :board_id';
+
+        $db = new Database();
+
+        $sth = $db->dbQuery($query, $arr, false);
+
+        if ($sth instanceof CreateError)
+        {
+            return $sth;
+        }
+
+        return $sth->fetchColumn();
+    }
+
+    public function boardArticleList($arr)
+    {
+        $query = 'select * from st_board where board_id = :board_id order by no desc limit :before, :list_count';
+
+        $db = new Database();
+        $sth = $db->dbQuery($query, $arr, false);
+
+        if ($sth instanceof CreateError)
+        {
+            return $sth;
+        }
+
+        return $sth->fetchAll();
     }
 }

@@ -12,18 +12,19 @@ class BaseApp
 			$this->redirect(DEFAULT_URL . $uri);
 		}
 
+		Session::start();
 		Database::init();
 
 		$display = new Display();
 		$display->displayAction($param);
 	}
-	
+
 	public function loadModel($name)
 	{
 		$class_name = ucfirst(strtolower($name)) . 'Model';
 
 		$class = load_class($class_name);
-		
+
 		if ($class) return $class;
 	}
 
@@ -32,7 +33,7 @@ class BaseApp
 		$class_name = ucfirst(strtolower($name)) . 'View';
 
 		$class = load_class($class_name);
-		
+
 		if ($class) return $class;
 	}
 
@@ -41,7 +42,7 @@ class BaseApp
 		$class_name = ucfirst(strtolower($name)) . 'Controller';
 
 		$class = load_class($class_name);
-		
+
 		if ($class) return $class;
 	}
 
@@ -51,10 +52,10 @@ class BaseApp
 
 		exit;
 	}
-  
+
 	public function showError($errorCode, $errorMessage = 'ok')
 	{
-		
+
 	}
 
 	public function render($tpl_path, $obj)
@@ -76,7 +77,7 @@ class BaseApp
 		));
 		$m = $mustache->loadTemplate($tpl_path);
 		$render = $m->render($obj);
-		
+
 		return $render;
 	}
 }

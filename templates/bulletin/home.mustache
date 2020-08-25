@@ -4,7 +4,7 @@
         <div class="field has-addons pagination">
           {{#pagination}}
           <p class="control">
-            <a class="button" href="/bulletin?page={{page}}">
+            <a class="button{{#current}} current{{/current}}" href="/bulletin?page={{page}}">
               <span>{{button}}</span>
             </a>
           </p>

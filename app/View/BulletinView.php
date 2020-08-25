@@ -10,7 +10,28 @@ class BulletinView extends BaseApp
 		FrontAssets::load(true, 'css/skin/default/forum.css', 3);
 		FrontAssets::load(false, 'js/menu.js', 3, 'body');
 
-		return '2332';
+		$bulletinModel = $this->loadModel('bulletin');
+
+		$board_id = get_value('boardId');
+		$key = get_value('key');
+
+		$bulletinModel->board_id = $board_id;
+
+		$board_info = $bulletinModel->getBoardInfoByBoardId($board_id);
+
+		if (!$board_info) return new NotFoundError();
+		$list = $bulletinModel->getBoardArticleList();
+		$pagination = $bulletinModel->getBulletinPagination();
+
+		$output = $this->render('bulletin/comm_body', array(
+			'posts' => $list,
+			'pagination' => $pagination,
+			'board_id' => $board_id,
+			'key' => $key,
+			'comm_info' => $board_info
+		));
+
+		return $output;
 	}
 
 	public function commList()

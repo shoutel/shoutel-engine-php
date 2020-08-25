@@ -21,20 +21,23 @@ class PaginationModel extends BaseApp
 			switch ($p->type)
 			{
 				case 'onePage':
-					$obj->button = '&lt;&lt;';
+					$obj->button = '<<';
 					break;
 				case 'prevPage':
-					$obj->button = '&lt;';
+					$obj->button = '<';
 					break;
-				case 'currentPage':
+                case 'currentPage':
+                    $obj->button = $obj->page;
+                    $obj->current = true;
+					break;
 				case 'page':
 					$obj->button = $obj->page;
 					break;
 				case 'nextPage':
-					$obj->button = '&gt;';
+					$obj->button = '>';
 					break;
 				case 'endPage':
-					$obj->button = '&gt;&gt;';
+					$obj->button = '>>';
 					break;
 			}
 

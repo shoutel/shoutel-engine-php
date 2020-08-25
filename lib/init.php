@@ -42,15 +42,3 @@ $path = array(
 
 spl_autoload_register('load_class');
 error_reporting(E_ALL | E_NOTICE);
-
-function setDefaultError($no, $message)
-{
-  $error = error_get_last();
-  $output = "";
-  foreach ($error as $info => $string)
-      $output .= "{$info}: {$string}\n";
-  return $output;
-}
-
-if (error_get_last())
-  ob_start('setDefaultError');
