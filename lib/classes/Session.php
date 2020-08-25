@@ -11,9 +11,7 @@ class Session
 
 		if (!isset($_SESSION))
 		{
-			echo <<<EOF
-			<span style="color:red;font-weight:700">WARNING!</span> Session not initialized.
-			EOF;
+			echo '<span style="color:red;font-weight:700">WARNING!</span> Session not initialized.';
 			exit();
 		}
 	}
