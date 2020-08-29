@@ -30,7 +30,7 @@
   "CommunityView":[
     {
       "template":"layout/default",
-      "views":["index"]
+      "views":["index", "create"]
     }
   ]
 }

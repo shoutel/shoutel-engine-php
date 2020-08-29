@@ -28,6 +28,21 @@ footer.sht-footer .sht-policy-list .policy-list a {
   border-top: 3px solid #9a8c84;
 }
 
+.sht-header .sht-header-titles {
+  padding: 2rem 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 3rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .sht-header .sht-header-titles {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .sht-comm-cover {
   background-color: #3e3734;
   -webkit-background-size: cover;

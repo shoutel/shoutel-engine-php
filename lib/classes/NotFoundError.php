@@ -2,7 +2,7 @@
 
 class NotFoundError
 {
-    public function __construct($statusCode = 0)
+    public function __construct()
 	{
 
     }

@@ -1,6 +1,6 @@
 location ~ /\.ht { deny all; }
 
-location ~ ^/(app|data|examples|lang|lib|templates)/.+\.(php(\.example)?|json|mustache)$ {
+location ~ ^/(app|data|examples|lang|lib|templates)/.+\.(php(\.example)?|json|mustache|sql)$ {
 	return 403;
 }
 
@@ -10,5 +10,9 @@ location ~ ^/(\.git|composer\.|LICENSE|README(\.md)?) {
   return 403;
 }
 
-rewrite ^/([a-zA-Z0-9_]+)/?$ /index.php?module=$1 last;
+rewrite ^/c/([a-zA-Z0-9_]+)?$ /index.php?module=bulletin&boardId=$1 last;
+rewrite ^/c/([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)?$ /index.php?module=bulletin&boardId=$1&key=$2 last;
+rewrite ^/write/c/([a-zA-Z0-9_]+)?$ /index.php?module=bulletin&action=write&boardId=$1 last;
+
+rewrite ^/([a-zA-Z0-9_]+)?$ /index.php?module=$1 last;
 rewrite ^/([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)?$ /index.php?module=$1&action=$2 last;

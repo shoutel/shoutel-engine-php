@@ -9,7 +9,7 @@ class Display extends BaseApp
 	public $method = NULL;
 
 	private $template_vars = NULL;
-	
+
 	protected $output = NULL;
 
 	static $title = NULL;
@@ -17,12 +17,12 @@ class Display extends BaseApp
 	static $description = NULL;
 
 	static $noindex = FALSE;
-	
+
 	public function getDisplayRootTemplate($obj)
 	{
 		$module = $obj->module;
 		$method = $obj->method;
-		
+
 		if ($module && $method)
 		{
 			$conf_path = VIEW_ROOT . 'templates.json';
@@ -30,7 +30,7 @@ class Display extends BaseApp
 			$json = json_decode($file, true);
 
 			$view = ucfirst(strtolower($module)) . 'View';
-			
+
 			if (isset($json[$view]))
 			{
 				foreach ($json[$view] as $m)
@@ -48,16 +48,47 @@ class Display extends BaseApp
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
-	public function getErrorMessage($no, $message, $statusCode = 500)
+	public function getDisplayApiPermission($obj)
+	{
+		$module = $obj->module;
+		$method = $obj->method;
+
+		$result = false;
+
+		if ($module && $method)
+		{
+			$conf_path = CONTROLLER_ROOT . 'api_permission.json';
+			$file = file_get_contents($conf_path, true);
+			$json = json_decode($file, true);
+
+			$ctrl = ucfirst(strtolower($module)) . 'Controller';
+
+			if (isset($json[$ctrl]))
+			{
+				foreach ($json[$ctrl] as $m)
+				{
+					if ($m == $method)
+					{
+						$result = true;
+						break;
+					}
+				}
+			}
+		}
+
+		return $result;
+	}
+
+	public function getMessage($no, $message, $statusCode = 500)
 	{
 		http_response_code($statusCode);
 
 		$var = array(
-			'msg_title' => 'Error',
+			'msg_title' => 'Message',
 			'err_in_code' => $no,
 			'message' => $message
 		);
@@ -160,7 +191,7 @@ class Display extends BaseApp
 		$module_key = $actionKey[0];
 		$act_key = $actionKey[1];
 		$api_key = $actionKey[2];
-		
+
 		$module = get_value($module_key);
 		$act = get_value($act_key);
 		$api = get_value($api_key);
@@ -170,6 +201,8 @@ class Display extends BaseApp
 		// include common CSS
 		FrontAssets::load(true, 'css/common/common.css', -1000000);
 		FrontAssets::load(true, 'font-awesome/css/font-awesome.min.css', -1000000);
+		FrontAssets::load(false, '//cdn.shoutel.com/jquery/jquery-3.5.1.min.js', -1000000);
+		FrontAssets::load(false, 'js/shoutel.util.js', -1000000, 'body');
 
 		$this->template_vars = array(
 			'default_locale' => DEFAULT_LOCALE,
@@ -195,14 +228,14 @@ class Display extends BaseApp
 			$obj = new stdClass();
 			$obj->module = $display->module;
 			$obj->method = $display->method;
-			
+
 			if (!$display->no_template)
 			{
 				$root = $this->getDisplayRootTemplate($obj);
 
-				if ($output instanceof CreateError)
+				if ($output instanceof CreateMsg)
 				{
-					$output = $this->getErrorMessage(
+					$output = $this->getMessage(
 						$output->status,
 						$output->message,
 						$output->statusCode
@@ -232,17 +265,22 @@ class Display extends BaseApp
 			else
 			{
 				$obj = new stdClass();
-			
-				if ($output instanceof CreateError)
+
+				if ($output instanceof CreateMsg)
 				{
+					http_response_code($output->statusCode);
+
+					$out = $output->output;
+
 					$obj->status = $output->status;
 					$obj->message = $output->message;
+					if ($out) $obj->output = $out;
 				}
 				else
 				{
 					$obj->output = $output;
 				}
-				
+
 				$output = json_encode($obj);
 			}
 

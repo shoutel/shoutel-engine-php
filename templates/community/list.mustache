@@ -2,11 +2,13 @@
   <div class="buttons">
     <a href="/community/create" class="button is-link">커뮤니티 생성</a>
   </div>
+  {{#comm_chunk}}
   <div class="columns">
-    {{#comm_list}}
+    {{#comm_item}}
     {{> community/card}}
-    {{/comm_list}}
+    {{/comm_item}}
   </div>
+  {{/comm_chunk}}
   <div class="field has-addons pagination">
     {{#pagination}}
     <p class="control">
