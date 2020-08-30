@@ -23,8 +23,14 @@ $('#createCommunityForm').submit(function(e) {
     data: JSON.stringify(form),
     success: function(data)
     {
-      var json_data = JSON.parse(data);
-      var m = json_data.message;
+      try {
+        var json_data = JSON.parse(data);
+        var m = json_data.message;
+      } catch (e) {
+        alert(data);
+        return;
+      }
+
       var o = json_data.output;
 
       if (m)
@@ -41,8 +47,13 @@ $('#createCommunityForm').submit(function(e) {
     },
     error: function(request)
     {
-      var json_data = JSON.parse(request.responseText);
-      var m = json_data.message;
+      try {
+        var json_data = JSON.parse(data);
+        var m = json_data.message;
+      } catch (e) {
+        alert(data);
+        return;
+      }
 
       if (m)
       {
