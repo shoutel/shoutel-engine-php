@@ -14,6 +14,7 @@ class BaseApp
 
 		Session::start();
 		Database::init();
+		Localization::init();
 
 		$display = new Display();
 		$display->displayAction($param);

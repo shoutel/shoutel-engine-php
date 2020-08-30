@@ -16,7 +16,12 @@ class CreateMsg
         {
 			$this->statusCode = $statusCode;
 			if ($statusCode != 200) $this->status = 'error';
-			$this->message = $message;
+
+			$translate = Localization::translate($message);
+			if ($translate)
+				$this->message = $translate;
+			else
+				$this->message = $message;
         }
 
         return;
