@@ -1,6 +1,6 @@
 <?php
 
-class AuthQuery
+class MemberQuery
 {
     public function findMember($arr)
     {

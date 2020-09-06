@@ -3,8 +3,15 @@
 class Database extends BaseApp
 {
 	private static $conn = NULL;
-	
-	public static function init()
+	private static $connSlave = NULL;
+
+	private $query = NULL;
+	private $option = NULL;
+	private $q = true;
+
+	public $cacheName = NULL;
+
+	public static function init($is_master = false)
 	{
 		if (defined('DB_SYSTEM'))
 		{
@@ -14,7 +21,15 @@ class Database extends BaseApp
 
 			if ($dbms != 'sqlite')
 			{
-				$hostname = DB_HOST_NAME;
+				if ($is_master)
+				{
+					$hostname = DB_HOST_NAME;
+				}
+				else
+				{
+					$hostname = DB_SLAVE_HOST_NAME;
+				}
+
 				$username = DB_USERNAME;
 				$password = DB_PASSWORD;
 				$db = DB_NAME;
@@ -34,7 +49,20 @@ class Database extends BaseApp
 				case 'mysql':
 					$mysql = new DBMySql($conf);
 					$conn = $mysql->connection();
-					self::$conn = $conn;
+
+					if (DB_HOST_NAME == DB_SLAVE_HOST_NAME)
+					{
+						self::$conn = $conn;
+						self::$connSlave = $conn;
+					}
+					else
+					{
+						if ($is_master)
+							self::$conn = $conn;
+						else
+							self::$connSlave = $conn;
+					}
+
 					break;
 				case 'sqlite':
 					$sqlite = new DBSqlite($conf);
@@ -48,15 +76,19 @@ class Database extends BaseApp
 		}
 	}
 
-	public function dbQuery($query, $option = null, $q = true)
+	public function dbQueryExecute($conn)
 	{
+		$query = $this->query;
+		$option = $this->option;
+		$q = $this->q;
+
 		if ($q)
 		{
-			$sth = self::$conn->prepare($query);
+			$sth = $conn->prepare($query);
 		}
 		else
 		{
-			$sth = self::$conn->prepare(
+			$sth = $conn->prepare(
 				$query,
 				array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY)
 			);
@@ -112,6 +144,35 @@ class Database extends BaseApp
 		{
 			return $sth;
 		}
+	}
+
+	public function dbQuery($query, $option = null, $q = true)
+	{
+		// select
+		$select = startsWith(strtolower($query), 'select');
+
+		if (!$select)
+		{
+			if (self::$conn === null)
+				self::init(true);
+
+			$conn = self::$conn;
+		}
+		else
+		{
+			if (self::$connSlave === null)
+				self::init();
+
+			$conn = self::$connSlave;
+		}
+
+		$this->query = $query;
+		$this->option = $option;
+		$this->q = $q;
+
+		$execute = $this->dbQueryExecute($conn);
+
+		return $execute;
 	}
 }
 

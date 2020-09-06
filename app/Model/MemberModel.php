@@ -1,17 +1,17 @@
 <?php
 
-class AuthModel extends BaseApp
+class MemberModel extends BaseApp
 {
     public function getAccountInfo($no)
     {
-        $authQuery = new AuthQuery();
+        $memberQuery = new MemberQuery();
 
-        return $authQuery->findMemberByMemberNo($no);
+        return $memberQuery->findMemberByMemberNo($no);
     }
 
     public function findAccount($obj)
     {
-        $authQuery = new AuthQuery();
+        $memberQuery = new MemberQuery();
 
         $member_no = isset($obj->member_no) ? $obj->member_no : NULL;
         $member_id = isset($obj->member_id) ? $obj->member_id : NULL;
@@ -23,7 +23,7 @@ class AuthModel extends BaseApp
 			':nick_name' => $nick_name
         );
 
-        return $authQuery->findMember($arr);
+        return $memberQuery->findMember($arr);
     }
 }
 

@@ -104,9 +104,9 @@ class BulletinModel extends BaseApp
         $obj->vote_down = $item['vote_down'];
 
         // additional info
-        $authModel = $this->loadModel('auth');
+        $memberModel = $this->loadModel('member');
         $member_no = $obj->member_no;
-        $account_info = $authModel->getAccountInfo($member_no);
+        $account_info = $memberModel->getAccountInfo($member_no);
         $obj->nick_name = $account_info->nick_name;
 
         $board_id = $obj->board_id;
@@ -129,29 +129,63 @@ class BulletinModel extends BaseApp
         $list_count = 30;
         $this->page = $page;
         $this->list_count = $list_count;
-        $before = $list_count * ($page - 1);
+		$before = $list_count * ($page - 1);
 
-        $bulletinQuery = new BulletinQuery();
+		$cache = new Cache();
+		$bulletinQuery = new BulletinQuery();
+		$cache_name = 'boardListCount';
+		$var = array(
+			'name' => $cache_name
+		);
 
-        $count = $bulletinQuery->boardListCount();
-        $this->count = $count;
+		$get_cache = $cache->getCache($cache_name, $var, 3600);
 
-        $arr = array(
+		if (!$get_cache)
+		{
+			$count = $bulletinQuery->boardListCount();
+			$this->count = $count;
+
+			$arr = array(
+				'count' => $count
+			);
+
+			$cache->setCache($cache_name, $arr, $var);
+
+		}
+		else
+		{
+			$this->count = $get_cache['count'];
+		}
+
+        $var = array(
 			':before' => (int)$before,
 			':list_count' => (int)$list_count
 		);
 
-        $list = $bulletinQuery->boardList($arr);
+		$cache_name = 'boardList';
 
-        $arr = array();
+		$get_cache = $cache->getCache($cache_name, $var, 3600);
 
-        foreach ($list as $i)
-        {
-            $item = $this->getBoardListItem($i);
-            array_push($arr, $item);
-        }
+		if (!$get_cache)
+		{
+			$list = $bulletinQuery->boardList($var);
 
-        return $arr;
+			$arr = array();
+
+			foreach ($list as $i)
+			{
+				$item = $this->getBoardListItem($i);
+				array_push($arr, $item);
+			}
+
+			$cache->setCache($cache_name, $arr, $var);
+
+			return $arr;
+		}
+		else
+		{
+			return $get_cache;
+		}
     }
 
     public function getBoardListItem($item)
@@ -169,9 +203,9 @@ class BulletinModel extends BaseApp
         $obj->register_date = $item['register_date'];
 
         // additional info
-        $authModel = $this->loadModel('auth');
+        $memberModel = $this->loadModel('member');
         $member_no = $obj->board_admin;
-        $account_info = $authModel->getAccountInfo($member_no);
+        $account_info = $memberModel->getAccountInfo($member_no);
         $obj->nick_name = $account_info->nick_name;
 
         $managers = $item['board_managers'];
