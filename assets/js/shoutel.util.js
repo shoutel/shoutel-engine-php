@@ -7,5 +7,19 @@ var shoutel = {
     }
 
     return object;
+  },
+  addCsrfTokenElement: function() {
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+    var csrf_el = document.createElement("input");
+    $(csrf_el).attr({
+      type: 'hidden',
+      name: '_sht_csrf_token',
+      value: csrf_token
+    });
+    $("form").append(csrf_el);
   }
 };
+
+$('button[type="submit"], input[type="submit"]').click(function() {
+  shoutel.addCsrfTokenElement();
+});

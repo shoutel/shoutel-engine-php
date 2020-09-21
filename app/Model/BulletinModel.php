@@ -106,8 +106,11 @@ class BulletinModel extends BaseApp
         // additional info
         $memberModel = $this->loadModel('member');
         $member_no = $obj->member_no;
-        $account_info = $memberModel->getAccountInfo($member_no);
-        $obj->nick_name = $account_info->nick_name;
+		$account_info = $memberModel->getAccountInfo($member_no);
+		if(isset($account_info->nick_name))
+		{
+			$obj->nick_name = $account_info->nick_name;
+		}
 
         $board_id = $obj->board_id;
         $board_info = $this->getBoardInfoByBoardId($board_id);

@@ -4,6 +4,11 @@ class CommunityController extends BaseApp
 {
 	public function createCommunity()
 	{
+		if (!CsrfToken::check())
+		{
+			return new CreateMsg(403, 'invalid_csrf_token');
+		}
+
 		$comm_name = trim(json_value('comm_name'));
 		$comm_id = trim(json_value('comm_id'));
 		$description = trim(json_value('description'));

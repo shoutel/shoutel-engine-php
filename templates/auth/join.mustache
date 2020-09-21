@@ -1,0 +1,42 @@
+<section class="hero is-success is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="member-box policy-w600">
+        <h3 class="title has-text-black">Shoutel 약관 동의</h3>
+        <div class="member-form">
+          <form id="joinAgreementForm" method="post" action="/auth/joinForm">
+            <div class="field">
+              <h3 class="policy-head">이용약관</h3>
+              <div class="control">
+                <div class="textarea policy-text">
+                  {{> member/terms}}
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" id="terms_agree" name="terms_agree" />
+                <span>위 이용약관에 동의합니다.</span>
+              </label>
+            </div>
+            <div class="field">
+              <h3 class="policy-head">개인정보처리방침</h3>
+              <div class="control">
+                <div class="textarea policy-text">
+                  {{> member/privacy}}
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" id="privacy_agree" name="privacy_agree" />
+                <span>위 개인정보처리방침에 동의합니다.</span>
+              </label>
+            </div>
+            <button type="button" onclick="joinNextStep()" class="button is-block is-info is-large is-fullwidth">다음<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

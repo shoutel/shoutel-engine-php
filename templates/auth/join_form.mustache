@@ -1,0 +1,65 @@
+<section class="hero is-success is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="member-box">
+        <h3 class="title has-text-black">가입하기</h3>
+        <div class="member-form">
+          <form id="joinForm" action="/api/auth/join" method="post">
+            <input type="hidden" name="_method" value="put"/>
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" name="member_id" type="text" placeholder="아이디" autofocus="">
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" name="password" type="password" placeholder="비밀번호">
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" name="password_verify" type="password" placeholder="비밀번호 확인">
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" name="email" type="text" placeholder="이메일">
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" name="nick_name" type="text" placeholder="닉네임">
+              </div>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" />
+                <span>마케팅 정보 수신 동의 (선택)</span>
+              </label>
+              <button type="button" class="button is-small" onclick="marketingPolicy()">약관보기</button>
+            </div>
+            <button type="submit" class="button is-block is-info is-large is-fullwidth">회원가입<i class="fa fa-sign-in" aria-hidden="true"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="marketingPolicyModal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">마케팅 정보 수신 동의</p>
+      <button class="delete" aria-label="close" onclick="marketingPolicy()"></button>
+    </header>
+    <section class="modal-card-body policy-text">
+      {{> member/marketing}}
+    </section>
+    <footer class="modal-card-foot">
+    </footer>
+  </div>
+</div>

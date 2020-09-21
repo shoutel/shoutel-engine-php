@@ -1,10 +1,12 @@
 {
   "AuthView":[
     {
-      "template":"layout/default",
+      "template":"layout/member",
       "views":[
         "login",
         "join",
+        "joinForm",
+        "joinSuccess",
         "findMember"
       ]
     }

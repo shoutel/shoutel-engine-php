@@ -1,5 +1,35 @@
-Login
+<section class="hero is-success is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="member-box">
+        <h3 class="title has-text-black">로그인</h3>
+        <div class="member-form">
+          <form>
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" type="member_id" placeholder="아이디" autofocus="">
+              </div>
+            </div>
 
-<p>{{lang_id}}</p>
-
-<p>{{lang_pass}}</p>
+            <div class="field">
+              <div class="control">
+                <input class="input is-medium" type="password" placeholder="비밀번호">
+              </div>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" />
+                <span>로그인 상태 유지</span>
+              </label>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">로그인<i class="fa fa-sign-in-alt" aria-hidden="true"></i></button>
+          </form>
+        </div>
+        <p class="has-text-grey bottom-help-menu">
+          <a href="/auth/join">회원가입</a>
+          <a href="/auth/findMember">아이디/비밀번호 찾기</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

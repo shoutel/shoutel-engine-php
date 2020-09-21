@@ -1,14 +1,14 @@
-    <section class="sht-posts">
-      <div class="container">
-        {{> bulletin/list}}
-        <div class="field has-addons pagination">
-          {{#pagination}}
-          <p class="control">
-            <a class="button{{#current}} current{{/current}}" href="/bulletin?page={{page}}">
-              <span>{{button}}</span>
-            </a>
-          </p>
-          {{/pagination}}
-        </div>
-      </div>
-    </section>
+<section class="sht-posts">
+  <div class="container">
+    {{> bulletin/list}}
+    <div class="field has-addons pagination">
+      {{#pagination}}
+      <p class="control">
+        <a class="button{{#current}} current{{/current}}" href="/bulletin?page={{page}}">
+          <span>{{button}}</span>
+        </a>
+      </p>
+      {{/pagination}}
+    </div>
+  </div>
+</section>

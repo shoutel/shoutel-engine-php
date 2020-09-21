@@ -1,0 +1,85 @@
+html,body {
+  font-size: 14px;
+  font-weight: 300;
+}
+.btn-go-shoutel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  font-size: 16px;
+  padding: 20px;
+}
+.hero.is-success {
+  background: #F2F6FA;
+}
+.hero .nav, .hero.is-success .nav {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.member-box {
+  max-width: 360px;
+  margin: 0 auto;
+}
+.member-box.policy-w600 {
+  max-width: 600px;
+}
+.box {
+  margin-top: 5rem;
+}
+input {
+  font-weight: 400;
+}
+p.subtitle {
+  padding-top: 1rem;
+}
+
+.member-hr{
+  border-bottom: 1px solid black;
+}
+
+.checkbox span {
+  color: #000;
+}
+
+.bottom-help-menu {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.has-text-black{
+  color: black;
+}
+
+.field{
+  padding-bottom: 10px;
+}
+
+.fa{
+  margin-left: 5px; 
+}
+
+.policy-head {
+  color: #000;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.textarea.policy-text {
+  min-height: 170px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  overflow: auto;
+  text-align: left;
+}
+
+.policy-text p, .policy-text h4 { margin: .5em 0 }
+.policy-text h1 { font-size: 1.4em; font-weight: 700; margin-bottom: .3em 0 }
+.policy-text h2 { font-size: 1.2em; font-weight: 700; margin: .75em 0 }
+.policy-text h3 { font-size: 1em; font-weight: 700; margin: .5em 0 }
+.policy-text ul { list-style-type: disc }
+.policy-text ol { list-style-type: decimal }
+.policy-text ul, .policy-text ol { margin: 0 0 16px 26px }

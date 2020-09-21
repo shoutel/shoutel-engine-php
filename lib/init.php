@@ -22,6 +22,8 @@ define('ERROR_VIEW_PATH', VIEW_ROOT . 'errors/');
 define('DEFAULT_CLASS', 'home');
 define('DEFAULT_HOME', 'index');
 
+define('CSRF_TOKEN_NAME', '__SHT_CSRF_TOKEN__');
+
 $chk_install = new stdClass();
 $chk_install->default_config = DATA_ROOT . 'config/default_config.php';
 $chk_install->database = DATA_ROOT . 'config/database.php';

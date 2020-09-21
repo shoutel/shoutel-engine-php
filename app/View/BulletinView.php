@@ -17,6 +17,8 @@ class BulletinView extends BaseApp
 
 		$bulletinModel->board_id = $board_id;
 
+		if (!$board_id) return new NotFoundError();
+
 		$board_info = $bulletinModel->getBoardInfoByBoardId($board_id);
 
 		if (!$board_info) return new NotFoundError();

@@ -7,7 +7,8 @@ class MemberQuery
         $query = 'select * from st_member where (
                   member_no = :no
                   or member_id = :member_id
-                  or nick_name = :nick_name
+				  or nick_name = :nick_name
+				  or email = :email
                   ) limit 1';
 
         $db = new Database();
@@ -40,5 +41,20 @@ class MemberQuery
         }
 
         return $sth->fetch(PDO::FETCH_OBJ);
-    }
+	}
+
+	public function insertMember($arr)
+	{
+		$query = 'INSERT INTO `st_member` (
+				`member_id`, `password`, `nick_name`, `email`
+			) VALUES (
+				?, ?, ?, ?
+			)';
+
+		$db = new Database();
+
+		$db->dbQuery($query, $arr, true);
+
+		return true;
+	}
 }

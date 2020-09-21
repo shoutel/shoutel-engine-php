@@ -15,6 +15,7 @@ class BaseApp
 		Session::start();
 		Database::init();
 		Localization::init();
+		CsrfToken::init();
 
 		$display = new Display();
 		$display->displayAction($param);
@@ -52,11 +53,6 @@ class BaseApp
 		header("Location: {$target}");
 
 		exit;
-	}
-
-	public function showError($errorCode, $errorMessage = 'ok')
-	{
-
 	}
 
 	public function render($tpl_path, $obj)

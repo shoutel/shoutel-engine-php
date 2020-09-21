@@ -1,5 +1,9 @@
 {
   "CommunityController": [
     "_jsonApiIndex"
+  ],
+  "AuthController": [
+    "joinAgreement",
+    "join"
   ]
 }

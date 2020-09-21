@@ -120,6 +120,7 @@ class Display extends BaseApp
 		$img_revision = FrontAssets::manageRevision('images');
 
 		$var = array(
+			'csrf_token' => CsrfToken::get(),
 			'body_content' => $content,
 			'css' => $assets->css,
 			'js' => $assets->js,
@@ -140,7 +141,12 @@ class Display extends BaseApp
 
 	public static function setDisplayTitle($title)
 	{
-		self::$title = $title;
+		$translate = Localization::translate($title);
+		if ($translate)
+			self::$title = $translate;
+		else
+			self::$title = $title;
+
 	}
 
 	public static function getDisplayTitle()
